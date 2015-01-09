@@ -1,0 +1,14 @@
+<settings>
+    <servers>
+        <server>
+            <id>archiva.braindead.internal</id>
+            <username>${env.ARCHIVA_USER}</username>
+            <password>${env.ARCHIVA_PASSWD}</password>
+        </server>
+        <server>
+            <id>archiva.braindead.snapshots</id>
+            <username>${env.ARCHIVA_USER}</username>
+            <password>${env.ARCHIVA_PASSWD}</password>
+        </server>
+    </servers>
+</settings>
