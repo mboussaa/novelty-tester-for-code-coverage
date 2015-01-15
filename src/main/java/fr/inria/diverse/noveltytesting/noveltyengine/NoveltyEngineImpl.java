@@ -27,7 +27,8 @@ import java.lang.reflect.InvocationTargetException;
  * current population after having remove non-novel interfaces
  * 
  * 
- * @author leiko
+ * @author mboussaa
+ *
  *
  */
 
@@ -117,6 +118,17 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
     public void generateData(Population population) {
         ModelGenerator gen = new ModelGeneratorImpl();
         population.getInterfaces().forEach(gen::generateData);
+    }
+    
+    @Override
+    public void generateNewData(Population population) throws InstantiationException, IllegalAccessException, IOException {
+        ModelGenerator gen = new ModelGeneratorImpl();
+        for (int i = 0; i < (popSize-threshold); i++) {
+            Interface anInterface = gen.generateModel(targetInterface,myPackage);
+            gen.generateData(anInterface);
+            population.addInterface(anInterface);
+            
+        }
     }
 
     @Override

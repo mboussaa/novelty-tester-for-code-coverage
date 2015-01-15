@@ -33,11 +33,17 @@ public class Selection implements Operator {
 
 	@Override
 	public void process(Population population) {
-        population.getInterfaces().forEach(i -> {
-            if (i.getNoveltyMetric() < threshold) {
-                population.removeInterface(i);
-            }
-        });
+//        population.getInterfaces().forEach(i -> {
+//            if (i.getNoveltyMetric() < 40) {
+//                population.removeInterface(i);
+//            }
+//        });
+        
+        for (int j = 0; j < population.getInterfaces().size(); j++) {
+        	 if (population.getInterfaces().get(j).getNoveltyMetric() < threshold) {
+                 population.removeInterface(population.getInterfaces().get(j));
+             }
+		}
 
         archive.addInterfaces(population.getInterfaces());
 	}

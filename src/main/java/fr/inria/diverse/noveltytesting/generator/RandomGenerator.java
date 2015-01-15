@@ -15,26 +15,17 @@ public class RandomGenerator extends AbstractGenerator {
 
 	protected static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyz"
 			+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789"
-			+ "&é\"'(-è_çà)=ù*^,;:!?./§~#{[|`\\^@]}]+*²<>%µ£¨";
-
+			+ "&\"'(-_)=*^,;:!?./~#{[|`\\@]}+<>%";
+	
 	@Override
 	protected int genInteger(Parameter p) {
 		return new Random().nextInt();
 	}
 
 	@Override
-	protected long genLong(Parameter p) {
-		return new Random().nextLong();
-	}
-
-    @Override
-    protected double genDouble(Parameter p) {
-        return (2*(new Random().nextDouble())-1)*Double.MAX_VALUE;
-    }
- 
-	@Override
 	protected float genFloat(Parameter p) {
 		return (2*(new Random().nextFloat())-1)*Float.MAX_VALUE;
+		//return (new Random().nextFloat())*Float.MAX_VALUE;
 	}
 
 	@Override
@@ -44,7 +35,7 @@ public class RandomGenerator extends AbstractGenerator {
 
 	@Override
 	protected short genShort(Parameter p) {
-		return (short) new Random().nextInt(Short.MAX_VALUE + 1);
+		return (short) (new Random().nextInt(2*Short.MAX_VALUE)-(Short.MAX_VALUE));
 	}
 
 	@Override
@@ -60,8 +51,19 @@ public class RandomGenerator extends AbstractGenerator {
 	}
 
 	@Override
+	protected long genLong(Parameter p) {
+		return new Random().nextLong();
+	}
+
+    @Override
+    protected double genDouble(Parameter p) {
+        return (2*(new Random().nextDouble())-1)*Double.MAX_VALUE;
+    	//return (new Random().nextDouble())*Double.MAX_VALUE;
+    }
+    
+	@Override
 	protected String genString(Parameter p) {
-		int strLength = new Random().nextInt(10) + 1; // this is really
+		int strLength = new Random().nextInt(50) + 1; // this is really
 														// arbitrary
 		StringBuilder str = new StringBuilder();
 		while (strLength > 0) {

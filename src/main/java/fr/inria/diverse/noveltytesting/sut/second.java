@@ -20,15 +20,15 @@ public  class second implements Functions
 	}
 	
 	
-	public   boolean inverse(boolean b)
+	public   boolean inverse(float b)
 	{
-		return  ! (b) ;
+		return  false ;
 	}
 	
 	
-	public   int echo(int say, String s)
+	public int echo(int s, String ss, short sss, char c, long r,byte bb)
 	{
-		return say;
+		return s;
 	}
 	
 	

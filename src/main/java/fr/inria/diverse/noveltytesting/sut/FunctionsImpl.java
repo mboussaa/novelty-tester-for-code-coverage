@@ -292,15 +292,15 @@ public static final double F_1_4 = 1d / 4d;
 	}
 	
 	
-	public   boolean inverse(boolean b)
+	public   boolean inverse(float b)
 	{
-		return  ! (b) ;
+		return  true ;
 	}
 	
 	
-	public   int echo(int say, String s )
+	public int echo(int s, String ss, short sss, char c, long r,byte bb)
 	{
-		return say;
+		return s;
 	}
 	
 	

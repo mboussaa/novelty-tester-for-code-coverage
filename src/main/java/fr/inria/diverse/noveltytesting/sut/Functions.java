@@ -3,11 +3,11 @@ package fr.inria.diverse.noveltytesting.sut;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  interface Functions extends haxe.lang.IHxObject
 {
-	   int echo(int s, String ss);
+	   int echo(int s, String ss, short sss, char c, long r, byte bb);
 	
 	   double sum(double a, int b);
 	
-	   boolean inverse(boolean b);
+	   boolean inverse(float b);
 	
 	   int concat(int a, int b);
 	   

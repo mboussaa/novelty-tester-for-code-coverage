@@ -1,5 +1,7 @@
 package fr.inria.diverse.noveltytesting.behaviour;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +19,9 @@ import fr.inria.diverse.noveltytesting.normalization.NormalizationImpl;
  * this class basically measures the distance between a given interface and a
  * population and an archive of past visited interfaces. This distance is called
  * the novelty metric
- * 
+ *
+ * @author mboussaa
+ *
  */
 
 public class BehaviourImpl implements Behaviour {
@@ -25,7 +29,7 @@ public class BehaviourImpl implements Behaviour {
 	private Normalization norm=new NormalizationImpl();
 	private List<Double> distances;
 	
-
+	
 	public double getDistanceFromkNearest(Interface i, Population pop, Population archive, int k) {
 
 		distances = new LinkedList<>();
@@ -37,7 +41,8 @@ public class BehaviourImpl implements Behaviour {
     	for(double dis : distances){
     		DistanceFromkNearest+=dis;
     	}
-    		return DistanceFromkNearest;
+    //	System.out.println("finaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal "+DistanceFromkNearest/k);
+    		return DistanceFromkNearest/k;
     }
 
     private void setDistancesList(Interface anInterface, Population population) {
@@ -53,7 +58,7 @@ public class BehaviourImpl implements Behaviour {
 		for (Method m : interface1.getMethods()) {
 			distanceInterfaces += getDistance(
                     interface1.getMethod(m.getName(), m.getParameterTypes()),
-                    interface2.getMethod(m.getName(), m.getParameterTypes()));
+                    interface2.getMethod(m.getName(), m.getParameterTypes()))/interface1.getMethods().size();
 		}
 
 		return distanceInterfaces;
@@ -63,7 +68,7 @@ public class BehaviourImpl implements Behaviour {
 		double distanceMethods = 0;
 		for (Parameter p : method1.getParameters()) {
 			distanceMethods += getDistance(method1.getParamsMap().get(p.getName()),
-                    method2.getParamsMap().get(p.getName()));
+                    method2.getParamsMap().get(p.getName()))/method1.getParameterTypes().size();
 		}
 
 		return distanceMethods;
@@ -75,59 +80,64 @@ public class BehaviourImpl implements Behaviour {
 		double distanceStrings = 0;
 
 		double distanceParameters;
-System.out.println("double "+((Double.MAX_VALUE)-(Double.MAX_VALUE*-1)));
-		System.exit(0);
+//System.out.println("double "+((Double.MAX_VALUE)-(Double.MAX_VALUE*-1)));
+		//System.exit(0);
 		if (parameter1.getType().equals("double")){
-			distanceNumbers= norm.normalizeDouble(getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("distance double without norm : "+getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance double with norm :"+distanceNumbers);
-			
+			distanceNumbers= (getDistance(norm.normalizeDouble((double) parameter1.getValue()), norm.normalizeDouble((double) parameter2.getValue())));
+//			System.out.println("distance double without norm : "+distanceNumbers);
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+((double) parameter1.getValue()));
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+((double) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+norm.normalizeDouble((double) parameter1.getValue()));
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+norm.normalizeDouble((double) parameter2.getValue()));
+//			System.out.println("Distance double with norm :"+norm.normalizeMyDouble(distanceNumbers));
+//		
 		} else if (parameter1.getType().equals("int")) {
-			distanceNumbers = norm.normalizeInteger((int)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("distance int without norm : "+(int)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance int with norm :"+distanceNumbers);
+			distanceNumbers = norm.normalizeInteger((double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("distance int without norm : "+(double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
+//			System.out.println("Distance int with norm :"+distanceNumbers);
 			
 		} else if (parameter1.getType().equals("long")) {
-			distanceNumbers = norm.normalizeLong((long)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("distance long without norm : "+(long)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance long with norm :"+distanceNumbers);
-			
+			distanceNumbers = norm.normalizeLong((double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("distance long without norm : "+(double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
+//			System.out.println("Distance long with norm :"+distanceNumbers);
+//			
 		} else if (parameter1.getType().equals("float")) {
-			distanceNumbers = norm.normalizeFloat((float)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("distance float without norm : "+(float)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance float with norm :"+distanceNumbers);
+			distanceNumbers = norm.normalizeFloat((double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("distance float without norm : "+(double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
+//			System.out.println("Distance float with norm :"+distanceNumbers);
 			
 		} else if (parameter1.getType().equals("short")) {
-			distanceNumbers = norm.normalizeShort((short)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("distance short without norm : "+(short)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance short with norm :"+distanceNumbers);
+			distanceNumbers = norm.normalizeShort((double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("distance short without norm : "+(double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
+//			System.out.println("Distance short with norm :"+distanceNumbers);
 			
 		} else if (parameter1.getType().equals("byte")) {
-			distanceNumbers = norm.normalizeByte((byte)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("distance byte without norm : "+(byte)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance byte with norm :"+distanceNumbers);
+			distanceNumbers = norm.normalizeByte((double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("distance byte without norm : "+(double)getDistance((Number) parameter1.getValue(), (Number) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
+//			System.out.println("Distance byte with norm :"+distanceNumbers);
 			
 		} else if (parameter1.getType().equals("char")) {
 			distanceChar = norm.normalizeChar(getDistance((char) parameter1.getValue(), (char) parameter2.getValue()));
-			System.out.println("distance char without norm : "+getDistance((char) parameter1.getValue(), (char) parameter2.getValue()));
-			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
-			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
-			System.out.println("Distance char with norm :"+distanceChar);
+//			System.out.println("distance char without norm : "+getDistance((char) parameter1.getValue(), (char) parameter2.getValue()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue());
+//			System.out.println("Distance char with norm :"+distanceChar);
 		} else if (parameter1.getType().equals("java.lang.String")) {
-			distanceStrings = norm.normalizeString(getDistance((String) parameter1.getValue(), (String) parameter2.getValue()));
-			System.out.println("Distance String with norm :"+distanceChar);
+			distanceStrings = norm.normalizeString(getDistance(parameter1.getValue().toString(),parameter2.getValue().toString()));
+//			System.out.println("distance char without norm : "+getDistance(parameter1.getValue().toString(),parameter2.getValue().toString()));
+//			System.out.println("Param Name 1 :"+parameter1.getName()+" Param type 1 :"+parameter1.getType()+" Param value 1 :"+parameter1.getValue().toString());
+//			System.out.println("Param Name 2 :"+parameter2.getName()+" Param type 2 :"+parameter2.getType()+" Param value 2 :"+parameter2.getValue().toString());
+//			System.out.println("Distance char with norm :"+distanceStrings);
 		}
 
 		distanceParameters = distanceNumbers + distanceChar + distanceStrings;

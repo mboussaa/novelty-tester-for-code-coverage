@@ -25,4 +25,6 @@ public interface NoveltyEngine {
     Population getArchive();
 
     void setExclusionPattern(String exclusionpattern);
+
+	void generateNewData(Population population) throws InstantiationException, IllegalAccessException, IOException;
 }

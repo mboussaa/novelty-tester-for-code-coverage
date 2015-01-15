@@ -19,7 +19,7 @@ public class InputOutputVisitor extends AbstractModelVisitor {
     public void visit(Interface i) {
     	System.out.println("\n============================================================");
         System.out.println("Model: " + i.getName());
-        //System.out.println("Novelty Metric: " + i.getNoveltyMetric());
+        System.out.println("Novelty Metric: " + i.getNoveltyMetric());
         //System.out.println("Fitness Value: " + i.getFitness());
         System.out.println("\nCoverage Value: " + i.getCoverageRatio());
         System.out.print("\n");

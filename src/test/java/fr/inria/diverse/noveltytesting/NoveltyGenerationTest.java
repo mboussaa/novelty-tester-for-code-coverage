@@ -23,7 +23,12 @@ import org.junit.Test;
  * of the novelty algorithm
  * 
  * Unit test
+ * 
+ * 
+ * @author mboussaa
+ *
  */
+
 public class NoveltyGenerationTest {
 
 	private String myPackage;
@@ -82,7 +87,7 @@ public class NoveltyGenerationTest {
 			engine.evaluate(pop);
 			engine.geneticProcess(pop);
 			pop.accept(visitor);
-			engine.generateData(pop);
+			engine.generateNewData(pop);
 		}
 	}
 }
