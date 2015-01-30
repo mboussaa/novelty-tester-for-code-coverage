@@ -132,6 +132,6 @@ public class Interface implements Visitable {
 
     public void processNoveltyMetric(Population current, Population archive, int k) {
         Behaviour b = new BehaviourImpl();
-        noveltyMetric = b.getDistanceFromkNearest(this, current, archive, k);
+        this.noveltyMetric = b.getDistanceFromkNearest(this, current, archive, k);
     }
 }

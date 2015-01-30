@@ -12,14 +12,14 @@ public class InputOutputVisitor extends AbstractModelVisitor {
 
     @Override
     public void visit(Population p) {
-        System.out.println("=========== Population =====================================");
+        System.out.println("=========== Population =========================================================================================================");
     }
 
     @Override
     public void visit(Interface i) {
     	System.out.println("\n============================================================");
         System.out.println("Model: " + i.getName());
-        System.out.println("Novelty Metric: " + i.getNoveltyMetric());
+        System.out.println("\nNovelty Metric: " + i.getNoveltyMetric());
         //System.out.println("Fitness Value: " + i.getFitness());
         System.out.println("\nCoverage Value: " + i.getCoverageRatio());
         System.out.print("\n");

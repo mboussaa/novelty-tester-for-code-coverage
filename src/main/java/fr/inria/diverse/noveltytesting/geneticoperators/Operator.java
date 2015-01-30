@@ -7,6 +7,6 @@ import fr.inria.diverse.noveltytesting.model.Population;
  */
 public interface Operator {
 
-    void process(Population population);
+    void process(Population population,Population archive);
     
 }

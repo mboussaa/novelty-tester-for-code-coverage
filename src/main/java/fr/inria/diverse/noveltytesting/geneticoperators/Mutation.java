@@ -18,7 +18,7 @@ public class Mutation implements Operator {
 	private Generator mutationGenerator = new RandomMutationGenerator();
 
 	@Override
-	public void process(Population population) {
+	public void process(Population population,Population archive) {
 		List<Interface> interfaces = population.getInterfaces();
 
 		for (Interface anInterface : interfaces) {

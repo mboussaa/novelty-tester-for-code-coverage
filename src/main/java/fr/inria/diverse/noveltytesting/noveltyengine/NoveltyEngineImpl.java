@@ -5,6 +5,8 @@ import fr.inria.diverse.noveltytesting.model.Interface;
 import fr.inria.diverse.noveltytesting.model.Population;
 import fr.inria.diverse.noveltytesting.modelgeneration.ModelGenerator;
 import fr.inria.diverse.noveltytesting.modelgeneration.ModelGeneratorImpl;
+import fr.inria.diverse.noveltytesting.visitor.InputOutputVisitor;
+import fr.inria.diverse.noveltytesting.visitor.Visitor;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -75,10 +77,10 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
 			int popSize, String myPackage, Class<?> targetInterface, String myCompiledClasses) {
         this.gen = new ModelGeneratorImpl();
         this.archive = new Population(limit);
-        this.selection = new Selection(archive,threshold);
+        
         this.mutation = new Mutation();
         this.crossover = new Crossover();
-        this.evaluation = new Evaluation(archive, k);
+        
         
         this.limit = limit;
         this.k = k;
@@ -95,10 +97,6 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
         this.gen.setExclusionPattern(pattern);
     }
 
-    @Override
-    public Population getArchive() {
-        return archive;
-    }
 
     @Override
     public Population generatePopulation() throws Exception {
@@ -123,12 +121,18 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
     @Override
     public void generateNewData(Population population) throws InstantiationException, IllegalAccessException, IOException {
         ModelGenerator gen = new ModelGeneratorImpl();
-        for (int i = 0; i < (popSize-threshold); i++) {
+
+        int size =popSize-population.getInterfaces().size();
+        for (int i = 0; i < size; i++) {
             Interface anInterface = gen.generateModel(targetInterface,myPackage);
             gen.generateData(anInterface);
             population.addInterface(anInterface);
-            
+      
         }
+//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarchive");
+//        Visitor visitor = new InputOutputVisitor();
+//        archive.accept(visitor);
+//        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeend archive");
     }
 
     @Override
@@ -141,13 +145,20 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
 
     @Override
     public void geneticProcess(Population population) {
-        selection.process(population);
-        mutation.process(population);
-        crossover.process(population);
+    	this.selection = new Selection(threshold);
+        selection.process(population,archive);
+        mutation.process(population,archive);
+        crossover.process(population,archive);
+        for(Interface ff:archive.getInterfaces()){
+        	System.out.println("arch : "+ff.getNoveltyMetric());
+        	//archive.addInterface(f);
+        }
+        //System.exit(0);
     }
 
     @Override
     public void evaluate(Population population) {
-        evaluation.process(population);
+    	this.evaluation = new Evaluation(k);
+        evaluation.process(population,archive);
     }
 }

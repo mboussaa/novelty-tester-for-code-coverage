@@ -59,6 +59,10 @@ public class Population implements Visitable {
     public void addInterfaces(List<Interface> interfaces) {
         this.interfaces.addAll(interfaces);
     }
+    
+    public void setInterfaces(List<Interface> interfaces) {
+        this.interfaces=interfaces;
+    }
 
     @Override
     public void accept(Visitor visitor, boolean visitChildren, boolean isRecursive) {

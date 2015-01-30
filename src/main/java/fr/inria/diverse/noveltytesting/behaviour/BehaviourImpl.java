@@ -36,12 +36,15 @@ public class BehaviourImpl implements Behaviour {
     	double DistanceFromkNearest = 0;
     	setDistancesList(i, pop);
     	setDistancesList(i, archive);
+
     	Collections.sort(distances);
-    	setDistances(distances.subList(0, k));
+
+    	setDistances(distances.subList(1, k+1));
+    
     	for(double dis : distances){
     		DistanceFromkNearest+=dis;
     	}
-    //	System.out.println("finaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal "+DistanceFromkNearest/k);
+
     		return DistanceFromkNearest/k;
     }
 

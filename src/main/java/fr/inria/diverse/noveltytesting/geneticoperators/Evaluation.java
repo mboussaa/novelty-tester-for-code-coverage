@@ -20,13 +20,13 @@ public class Evaluation implements Operator {
     private Population archive;
     private int k;
 
-    public Evaluation(Population archive, int k) {
-        this.archive = archive;
+    public Evaluation( int k) {
+        //this.archive = archive;
         this.k = k;
     }
 
     @Override
-    public void process(Population population) {
+    public void process(Population population,Population archive) {
 
         population.getInterfaces().forEach(i -> i.processNoveltyMetric(population, archive, k));
     }

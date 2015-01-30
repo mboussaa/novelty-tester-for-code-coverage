@@ -20,7 +20,7 @@ import java.util.List;
 public class Crossover implements Operator {
 
     @Override
-    public void process(Population population) {
+    public void process(Population population,Population archive) {
         int crossoverPoint;
         int crossoverMethodPosition;
         Object permute;

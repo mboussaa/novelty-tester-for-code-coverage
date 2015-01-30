@@ -52,11 +52,11 @@ public class NoveltyGenerationTest {
 		this.myPackage = "fr.inria.diverse.noveltytesting.sut";
 		this.myInterface = "fr.inria.diverse.noveltytesting.sut.Functions";
 		this.myCompiledClasses = "/Users/mboussaa/Documents/workspace/novelty-tester/target/classes/fr/inria/diverse/noveltytesting/sut";
-		this.popSize = 50;
-		this.numberGenerations = 2;
-		this.limit = 10000;
-		this.k = 50;
-		this.threshold = 30;
+		this.popSize = 10;
+		this.numberGenerations = 3;
+		this.limit = 1000000;
+		this.k = popSize/2;
+		this.threshold = 40;
 
 		List<Class<?>> implementedClasses = cf.findClassesPerInterface(
 				cf.findTargetInterface(myInterface, myPackage), myPackage);
@@ -83,11 +83,16 @@ public class NoveltyGenerationTest {
 		Visitor visitor = new InputOutputVisitor();
 		for (int i = 0; i < this.numberGenerations; i++) {
 			engine.executeMethods(pop);
-			pop.accept(visitor);
+			//pop.accept(visitor);
 			engine.evaluate(pop);
-			engine.geneticProcess(pop);
 			pop.accept(visitor);
+       	 
+			engine.geneticProcess(pop);
+			
+			
 			engine.generateNewData(pop);
+			//pop.accept(visitor);
+			//System.exit(0);
 		}
 	}
 }
