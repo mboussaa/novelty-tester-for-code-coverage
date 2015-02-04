@@ -1,8 +1,10 @@
 package fr.inria.diverse.noveltytesting.geneticoperators;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import fr.inria.diverse.noveltytesting.NoveltyGenerationTest;
 import fr.inria.diverse.noveltytesting.model.Interface;
 import fr.inria.diverse.noveltytesting.model.Population;
 import fr.inria.diverse.noveltytesting.visitor.InputOutputVisitor;
@@ -30,45 +32,59 @@ import fr.inria.diverse.noveltytesting.visitor.Visitor;
 public class Selection implements Operator {
 
     private double threshold;
-    //private Population archive;
 
+   
+    List<Interface> interfaces;
     public Selection( double threshold) {
-        //this.archive = archive;
+    
         this.threshold = threshold;
     }
 
 	@Override
 	public void process(Population population,Population archive) {
-//        population.getInterfaces().forEach(i -> {
-//            if (i.getNoveltyMetric() < 40) {
-//                population.removeInterface(i);
-//            }
-//        });
-		List<Interface> interfacess= new ArrayList<>();
-        interfacess.clear();
-		for (int j = 0; j < population.getInterfaces().size(); j++) {
-    	
-        	 if (population.getInterfaces().get(j).getNoveltyMetric() > threshold) {
-        		 interfacess.add(population.getInterfaces().get(j));
-                 //population.removeInterface(population.getInterfaces().get(j));
-             }
+		//interfaces.clear();
+
+		Iterator<Interface> it = population.getInterfaces().iterator();
+		while (it.hasNext()) {
+			Interface i = it.next();
+			if (i.getNoveltyMetric() >= threshold) {
+				archive.addInterface(i.clone());
+			} else {
+				it.remove();
+			}
 		}
-        population.setInterfaces(interfacess);
-        //archive.addInterfaces(interfaces);
-        for(Interface f:population.getInterfaces()){
-        	//System.out.println("SELECCTED : "+f.getNoveltyMetric());
-        	archive.addInterface(f);
-        }
-        
-//        for(Interface ff:archive.getInterfaces()){
-//        	System.out.println("arch : "+ff.getNoveltyMetric());
+		
+//		for (int j = 0; j < population.getInterfaces().size(); j++) {
+//
+//        	 if (population.getInterfaces().get(j).getNoveltyMetric() >= threshold) {	 
+//        		 archive.addInterface(population.getInterfaces().get(j));        
+//		} else {
+//			population.getInterfaces()
+//
+//		}
+		
+//		 if (archive.getInterfaces().size()==archive.getSize()){
+//		 archive.removeInterface(0);
+//		 archive.addInterface(mom);
+//		 }else{
+//		 archive.addInterface(mom);
+//		 }
+
+		
+		
+		
+		
+//		System.out.println("pop size : "+population.getInterfaces().size());
+//        for(Interface ff:population.getInterfaces()){
+//        	System.out.println("pop : "+ff.getNoveltyMetric());
 //        	//archive.addInterface(f);
 //        }
-//        
-//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarchive");
-//        Visitor visitor = new InputOutputVisitor();
-//        archive.accept(visitor);
-//        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeend archive");
+//        System.out.println("arch size : "+archive.getInterfaces().size());
+//        for(Interface fff:archive.getInterfaces()){
+//        	System.out.println("arch : "+fff.getNoveltyMetric());
+//        	//archive.addInterface(f);
+//        }
+
         
-	}
-}
+
+	}}

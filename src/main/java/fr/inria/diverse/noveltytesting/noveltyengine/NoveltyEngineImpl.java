@@ -147,13 +147,11 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
     public void geneticProcess(Population population) {
     	this.selection = new Selection(threshold);
         selection.process(population,archive);
+        if(population.getInterfaces().size()>0){
         mutation.process(population,archive);
         crossover.process(population,archive);
-        for(Interface ff:archive.getInterfaces()){
-        	System.out.println("arch : "+ff.getNoveltyMetric());
-        	//archive.addInterface(f);
         }
-        //System.exit(0);
+
     }
 
     @Override

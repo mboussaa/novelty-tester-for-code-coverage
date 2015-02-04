@@ -1,5 +1,7 @@
 package fr.inria.diverse.noveltytesting.geneticoperators;
 
+import fr.inria.diverse.noveltytesting.behaviour.Behaviour;
+import fr.inria.diverse.noveltytesting.behaviour.BehaviourImpl;
 import fr.inria.diverse.noveltytesting.model.Population;
 
 /**
@@ -17,9 +19,11 @@ import fr.inria.diverse.noveltytesting.model.Population;
  */
 public class Evaluation implements Operator {
 
-    private Population archive;
+    //private Population archive;
     private int k;
-
+    double  min=100000;
+    double  max=0;
+    
     public Evaluation( int k) {
         //this.archive = archive;
         this.k = k;
@@ -28,6 +32,31 @@ public class Evaluation implements Operator {
     @Override
     public void process(Population population,Population archive) {
 
-        population.getInterfaces().forEach(i -> i.processNoveltyMetric(population, archive, k));
+      //  population.getInterfaces().forEach(i -> i.processNoveltyMetric(population, archive, k));
+        
+        for (int j = 0; j < population.getInterfaces().size(); j++) {
+        	 Behaviour b = new BehaviourImpl();
+             // this.noveltyMetric = b.getDistanceFromkNearest(this, current, archive, k);
+              //this.setNoveltyMetric(b.getDistanceFromkNearest(this, current, archive, k));
+        	 population.getInterfaces().get(j).setNoveltyMetric(b.getDistanceFromkNearest(population.getInterfaces().get(j), population, archive, k));
+        }
+        
+        
+        for (int j = 0; j < population.getInterfaces().size(); j++) {
+
+       	 if (population.getInterfaces().get(j).getCoverageRatio() > max) {
+       		 max = population.getInterfaces().get(j).getCoverageRatio();
+                //population.removeInterface(population.getInterfaces().get(j));
+       		 //System.out.println("maaaaaa n "+max);
+            }
+       	 
+       	 if (population.getInterfaces().get(j).getCoverageRatio() < min) {
+       		 min = population.getInterfaces().get(j).getCoverageRatio();
+                //population.removeInterface(population.getInterfaces().get(j));
+       		 //System.out.println("miiiiin "+min);
+            }
+		}
+        
+        
     }
 }

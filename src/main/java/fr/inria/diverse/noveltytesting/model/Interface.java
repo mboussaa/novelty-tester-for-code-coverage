@@ -5,6 +5,7 @@ import fr.inria.diverse.noveltytesting.behaviour.BehaviourImpl;
 import fr.inria.diverse.noveltytesting.visitor.Visitable;
 import fr.inria.diverse.noveltytesting.visitor.Visitor;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,9 +15,8 @@ import java.util.List;
  * an interface has a fitness value (1st metric): 1 if the outputs are similar <1 if there is any incoherence
  * an interface has a behaviour (2nd metric) which handles the novelty metric
  * 
- * Created by leiko on 16/10/14.
  */
-public class Interface implements Visitable {
+public class Interface implements Visitable,Serializable {
 
     private String name;
     private List<Method> methods;
@@ -28,7 +28,8 @@ public class Interface implements Visitable {
 		classes = new LinkedList<ImplementedClass>();
         this.methods = new LinkedList<>();
 	}
-
+	
+	
 	public List<ImplementedClass> getClasses() {
 		return classes;
 	}
@@ -130,8 +131,13 @@ public class Interface implements Visitable {
         }
     }
 
-    public void processNoveltyMetric(Population current, Population archive, int k) {
-        Behaviour b = new BehaviourImpl();
-        this.noveltyMetric = b.getDistanceFromkNearest(this, current, archive, k);
+	public Interface clone() {
+    	Interface i = new Interface();
+    	i.setNoveltyMetric(noveltyMetric);
+    	i.setMethods((List) ((LinkedList) methods).clone());
+    	i.setClasses((List) ((LinkedList) classes).clone());
+    	i.setCoverageRatio(coverageRatio);
+    	i.setName(name);
+    	return i;
     }
 }

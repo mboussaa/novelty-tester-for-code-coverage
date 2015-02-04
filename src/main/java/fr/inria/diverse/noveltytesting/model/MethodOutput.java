@@ -1,5 +1,6 @@
 package fr.inria.diverse.noveltytesting.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author mboussaa
  *
  */
-public class MethodOutput {
+public class MethodOutput implements Serializable{
 	private Object returnVal;
 
     private long execTime;

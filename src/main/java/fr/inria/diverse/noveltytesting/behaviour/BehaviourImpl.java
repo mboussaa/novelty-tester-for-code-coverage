@@ -32,9 +32,18 @@ public class BehaviourImpl implements Behaviour {
 	
 	public double getDistanceFromkNearest(Interface i, Population pop, Population archive, int k) {
 
+		
+      //  System.out.println("size  archbehaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaviour: "+archive.getInterfaces().size());
+        for(Interface fff:archive.getInterfaces()){
+        	//System.out.println("archbehaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaviour : "+fff.getNoveltyMetric());
+        	//archive.addInterface(f);
+        }
+		
 		distances = new LinkedList<>();
     	double DistanceFromkNearest = 0;
     	setDistancesList(i, pop);
+    	
+    	
     	setDistancesList(i, archive);
 
     	Collections.sort(distances);

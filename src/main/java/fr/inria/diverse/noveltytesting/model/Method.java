@@ -3,6 +3,7 @@ package fr.inria.diverse.noveltytesting.model;
 import fr.inria.diverse.noveltytesting.visitor.Visitable;
 import fr.inria.diverse.noveltytesting.visitor.Visitor;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -14,7 +15,7 @@ import java.util.*;
  * 
  * Created by leiko on 16/10/14.
  */
-public class Method implements Visitable {
+public class Method implements Visitable,Serializable {
 
     private String name;
     private String returnValType;

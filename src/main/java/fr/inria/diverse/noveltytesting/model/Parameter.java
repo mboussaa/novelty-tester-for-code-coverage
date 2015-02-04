@@ -1,5 +1,7 @@
 package fr.inria.diverse.noveltytesting.model;
 
+import java.io.Serializable;
+
 import fr.inria.diverse.noveltytesting.visitor.Visitable;
 import fr.inria.diverse.noveltytesting.visitor.Visitor;
 
@@ -8,7 +10,7 @@ import fr.inria.diverse.noveltytesting.visitor.Visitor;
  * 
  * Created by leiko on 16/10/14.
  */
-public class Parameter implements Visitable {
+public class Parameter implements Visitable, Serializable {
 
     private String name;
     private String type;

@@ -3,29 +3,48 @@ package fr.inria.diverse.noveltytesting.model;
 import fr.inria.diverse.noveltytesting.visitor.Visitable;
 import fr.inria.diverse.noveltytesting.visitor.Visitor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
  * getRelevantModels() return The list of interfaces that have generated
  * incoherence in the outputs taking into account the fitness value
- * 
- * @author leiko
  *
  */
 
-public class Population implements Visitable {
+public class Population implements Visitable,Serializable {
 
-    public List<Interface> interfaces;
+    private List<Interface> interfaces;
     private String sourcePackage;
     private int size;
-    
-    public Population(int limit) {
+    private Class<?> targetInterface;
+ 
+    public Class<?> getTargetInterface() {
+		return targetInterface;
+	}
+	public void setTargetInterface(Class<?> targetInterface) {
+		this.targetInterface = targetInterface;
+	}
+	public Population(int limit) {
         this.interfaces = new ArrayList<>();
+
     	this.size = limit;
 	}
+    public Population(List<Interface> interfaces,String sourcePackage,int size) {
+        this.interfaces = interfaces;
+        this.sourcePackage=sourcePackage;
+    	this.size = size;
+	}
+
+
+	public void initiateInterfaces(){
+		interfaces= new ArrayList<>();
+	}
+
 
 	public String getSourcePackage() {
 		return sourcePackage;
@@ -48,8 +67,12 @@ public class Population implements Visitable {
         return this.interfaces;
     }
 
-    public void removeInterface(Interface anInterface) {
-        this.interfaces.remove(anInterface);
+    public void removeInterface(int j) {
+        this.interfaces.remove(j);
+    }
+    
+    public void removeInterface(Interface i) {
+        this.interfaces.remove(i);
     }
 
     public void addInterface(Interface anInterface) {
@@ -61,6 +84,7 @@ public class Population implements Visitable {
     }
     
     public void setInterfaces(List<Interface> interfaces) {
+    	this.interfaces = new ArrayList<>();
         this.interfaces=interfaces;
     }
 
@@ -76,7 +100,15 @@ public class Population implements Visitable {
         }
     }
 
-    @Override
+    public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	@Override
     public void accept(Visitor visitor) {
         this.accept(visitor, true, true);
     }

@@ -2,6 +2,7 @@ package fr.inria.diverse.noveltytesting;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Vector;
 
 import fr.inria.diverse.noveltytesting.classfinder.ClassFinder;
 import fr.inria.diverse.noveltytesting.classfinder.ClassFinderImpl;
@@ -30,7 +31,7 @@ import org.junit.Test;
  */
 
 public class NoveltyGenerationTest {
-
+	
 	private String myPackage;
 	private String myInterface;
 	private String myCompiledClasses;
@@ -52,11 +53,11 @@ public class NoveltyGenerationTest {
 		this.myPackage = "fr.inria.diverse.noveltytesting.sut";
 		this.myInterface = "fr.inria.diverse.noveltytesting.sut.Functions";
 		this.myCompiledClasses = "/Users/mboussaa/Documents/workspace/novelty-tester/target/classes/fr/inria/diverse/noveltytesting/sut";
-		this.popSize = 10;
-		this.numberGenerations = 3;
-		this.limit = 1000000;
+		this.popSize = 100;
+		this.numberGenerations = 10;
+		this.limit = 100000;
 		this.k = popSize/2;
-		this.threshold = 40;
+		this.threshold =40;
 
 		List<Class<?>> implementedClasses = cf.findClassesPerInterface(
 				cf.findTargetInterface(myInterface, myPackage), myPackage);
@@ -82,17 +83,17 @@ public class NoveltyGenerationTest {
 
 		Visitor visitor = new InputOutputVisitor();
 		for (int i = 0; i < this.numberGenerations; i++) {
+	
 			engine.executeMethods(pop);
-			//pop.accept(visitor);
+
 			engine.evaluate(pop);
+			
 			pop.accept(visitor);
        	 
 			engine.geneticProcess(pop);
 			
-			
 			engine.generateNewData(pop);
-			//pop.accept(visitor);
-			//System.exit(0);
+
 		}
 	}
 }
