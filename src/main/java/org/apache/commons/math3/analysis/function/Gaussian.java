@@ -38,7 +38,7 @@ import org.apache.commons.math3.util.Precision;
  * @since 3.0
  * @version $Id: Gaussian.java 1455194 2013-03-11 15:45:54Z luc $
  */
-public class Gaussian implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
+public class Gaussian implements  DifferentiableUnivariateFunction {
     /** Mean. */
     private final double mean;
     /** Inverse of the standard deviation. */
@@ -61,7 +61,7 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
                     double sigma)
         throws NotStrictlyPositiveException {
         if (sigma <= 0) {
-            throw new NotStrictlyPositiveException(sigma);
+            //throw new NotStrictlyPositiveException(sigma);
         }
 
         this.norm = norm;

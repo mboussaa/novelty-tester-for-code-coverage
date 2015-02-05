@@ -1,5 +1,6 @@
 package fr.inria.diverse.noveltytesting.noveltyengine;
 
+import fr.inria.diverse.noveltytesting.model.Interface;
 import fr.inria.diverse.noveltytesting.model.Population;
 
 import java.io.IOException;
@@ -25,4 +26,8 @@ public interface NoveltyEngine {
     void setExclusionPattern(String exclusionpattern);
 
 	void generateNewData(Population population) throws InstantiationException, IllegalAccessException, IOException;
+
+	Interface getBestCoverage();
+
+	void bestCoverage(Population pop);
 }

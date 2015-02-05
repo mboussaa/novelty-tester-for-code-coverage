@@ -70,7 +70,7 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
                     double n)
         throws NotStrictlyPositiveException {
         if (n <= 0) {
-            throw new NotStrictlyPositiveException(n);
+           // throw new NotStrictlyPositiveException(n);
         }
 
         this.k = k;

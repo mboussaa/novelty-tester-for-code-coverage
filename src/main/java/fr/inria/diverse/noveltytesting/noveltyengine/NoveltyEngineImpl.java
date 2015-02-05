@@ -49,6 +49,7 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
     private String myPackage;
     private String myCompiledClasses;
     private Class<?> targetInterface;
+    private Interface x;
     
 	/**
 	 * Set Novelty Search parameters values
@@ -89,6 +90,9 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
         this.myPackage = myPackage;
         this.myCompiledClasses = myCompiledClasses;
         this.targetInterface = targetInterface;
+        
+		x=new Interface();
+		x.setCoverageRatio(0);
     }
 
 
@@ -158,5 +162,46 @@ public class NoveltyEngineImpl implements NoveltyEngine  {
     public void evaluate(Population population) {
     	this.evaluation = new Evaluation(k);
         evaluation.process(population,archive);
+    }
+    
+    
+    @Override
+    public Interface getBestCoverage() {
+ 
+		return x;
+	}
+
+
+	@Override
+	public void bestCoverage(Population pop){
+
+		for(Interface ff:pop.getInterfaces()){
+			if(ff.getCoverageRatio()>x.getCoverageRatio()){
+				x=ff;
+			}
+		}
+		
+		
+//		List<Interface> interfacez= new ArrayList<Interface>();
+//		
+//		for (int i = 0; i <pop.getSize() ; i++) {
+//			interfacez.add(pop.getInterfaces().get(i));
+//		}
+//		//Tri la liste
+//		
+//		Collections.sort(interfacez, new Comparator<Interface>()
+//				{
+//				    public int compare(Interface o1, Interface o2)
+//				    {
+//				         return Double.compare(o2.getCoverageRatio(), o1.getCoverageRatio());
+//				    }
+//				});
+//		for (int i = 0; i < interfacez.size(); i++) {
+//			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa "+interfacez.get(i).getCoverageRatio());
+//		}
+//		if (interfacez.get(0).getCoverageRatio()>bestCoverage.getCoverageRatio()){
+//			bestCoverage=interfacez.get(0);
+//			System.out.println("coveraaaaaaaaaaaaaaaaaaaaaaage "+bestCoverage.getCoverageRatio());
+//		}
     }
 }

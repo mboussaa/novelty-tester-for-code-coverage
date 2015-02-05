@@ -160,7 +160,7 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
                                 double hi)
         throws OutOfRangeException {
         if (x < lo || x > hi) {
-            throw new OutOfRangeException(x, lo, hi);
+           // throw new OutOfRangeException(x, lo, hi);
         }
         return FastMath.log((x - lo) / (hi - x));
     }

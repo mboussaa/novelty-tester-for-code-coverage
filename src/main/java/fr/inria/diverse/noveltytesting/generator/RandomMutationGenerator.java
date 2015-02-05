@@ -13,7 +13,7 @@ import fr.inria.diverse.noveltytesting.model.Parameter;
 
 public class RandomMutationGenerator extends RandomGenerator {
 
-	private int mutationRange = 50;
+	private int mutationRange = 100000;
 
 	@Override
 	protected int genInteger(Parameter p) {

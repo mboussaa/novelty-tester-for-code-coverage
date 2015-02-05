@@ -32,7 +32,7 @@ import org.apache.commons.math3.util.MathArrays;
  * @since 3.0
  * @version $Id: StepFunction.java 1455194 2013-03-11 15:45:54Z luc $
  */
-public class StepFunction implements UnivariateFunction {
+public class StepFunction {
     /** Abscissae. */
     private final double[] abscissa;
     /** Ordinates. */
@@ -59,19 +59,14 @@ public class StepFunction implements UnivariateFunction {
      * have the same length.
      */
     public StepFunction(double[] x,
-                        double[] y)
-        throws NullArgumentException, NoDataException,
-               DimensionMismatchException, NonMonotonicSequenceException {
+                        double[] y) {
         if (x == null ||
             y == null) {
-            throw new NullArgumentException();
+          //  throw new NullArgumentException();
         }
-        if (x.length == 0 ||
-            y.length == 0) {
-            throw new NoDataException();
-        }
+
         if (y.length != x.length) {
-            throw new DimensionMismatchException(y.length, x.length);
+           // throw new DimensionMismatchException(y.length, x.length);
         }
         MathArrays.checkOrder(x);
 
