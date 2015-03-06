@@ -50,14 +50,14 @@ public class NoveltyGenerationTest {
 	public void testBefore() throws ClassNotFoundException, IOException,
 			InstantiationException, IllegalAccessException {
 
-		this.myPackage = "org.apache.commons.math3.analysis";
-		this.myInterface = "org.apache.commons.math3.analysis.UnivariateFunction";
-		this.myCompiledClasses = "/Users/mboussaa/Documents/workspace/novelty-tester/target/classes/org/apache/commons/math3";
-		this.popSize = 100;
-		this.numberGenerations = 1000;
+		this.myPackage = "net.sourceforge.jeval";
+		this.myInterface = "net.sourceforge.jeval.operator.Operator";
+		this.myCompiledClasses = "/Users/mboussaa/Documents/workspace/novelty-tester/target/classes/net/sourceforge/jeval";
+		this.popSize = 5;
+		this.numberGenerations = 4;
 		this.limit = 100000;
-		this.k = popSize/2;
-		this.threshold =20;
+		this.k = 2;
+		this.threshold =30;
 
 		List<Class<?>> implementedClasses = cf.findClassesPerInterface(
 				cf.findTargetInterface(myInterface, myPackage), myPackage);
@@ -90,7 +90,7 @@ public class NoveltyGenerationTest {
 			
 			engine.bestCoverage(pop);
 			
-			//pop.accept(visitor);
+			pop.accept(visitor);
        	 
 			engine.geneticProcess(pop);
 			
@@ -99,5 +99,7 @@ public class NoveltyGenerationTest {
 		}
 		
 		System.out.println("maaaaaaaax "+engine.getBestCoverage().getCoverageRatio());
+
+		
 	}
 }

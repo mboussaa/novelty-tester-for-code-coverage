@@ -1,6 +1,6 @@
 package fr.inria.diverse.noveltytesting.coverage;
 
-import static org.junit.Assert.assertEquals;
+ 
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

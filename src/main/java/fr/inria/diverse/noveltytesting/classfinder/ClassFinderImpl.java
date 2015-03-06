@@ -11,8 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.hamcrest.core.IsInstanceOf;
-import org.jacoco.core.instr.Instrumenter;
+
 
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
